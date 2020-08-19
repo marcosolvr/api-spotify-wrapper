@@ -85,3 +85,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Hat tip to anyone whose code was used
 * Inspiration
 * etc
+=======
+# api-spotify-wrapper
+>>>>>>> d1e8352f1a6e8f2b4057725b4462d61cc88a71e9
