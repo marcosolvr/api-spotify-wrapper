@@ -51,6 +51,10 @@
     "eslint-plugin-import": "^2.22.0",
     "husky": "^4.2.5",
     "mocha": "^8.1.1",
-    "nyc": "^15.1.0"
+    "node-fetch": "^2.6.0",
+    "nyc": "^15.1.0",
+    "sinon": "^9.0.3",
+    "sinon-chai": "^3.5.0",
+    "sinon-stub-promise": "^4.0.0"
   }
 }
