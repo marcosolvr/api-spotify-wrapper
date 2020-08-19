@@ -1,0 +1,33 @@
+{
+    "env": {
+        "es2020": true,
+        "node": true,
+        "mocha": true
+    },
+    "extends": [
+        "airbnb-base"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 11,
+        "sourceType": "module"
+    },
+    "rules": {
+      "no-unused-vars": [
+        "error",
+        {
+          "varsIgnorePattern": "should|expect"
+        }
+      ]
+    },
+    "overrides": [
+      {
+        "files": ["tests/*.spec.js"],
+        "rules": {
+          "require-jsdoc": "off",
+          "prefer-arrow-callback": "off",
+          "func-names": "off",
+          "no-unused-expressions": "off"
+        }
+      }
+    ]
+}
