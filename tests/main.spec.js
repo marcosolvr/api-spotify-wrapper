@@ -48,7 +48,7 @@ describe('Spotify Wrapper', function () {
   describe('Generic Search', function () {
     it('Should call fetch function', function () {
       const artists = search();
-      expect(fetchedStub).to.have.been.calledOn;
+      expect(fetchedStub).to.have.been.calledOnce;
     });
 
     it('Should call fetch with the current URL', function () {
