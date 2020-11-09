@@ -2,18 +2,27 @@
 import Chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import sinonStubPromise from 'sinon-stub-promise';
 
 import {
   search, searchAlbums, searchArtists, searchTracks, searchPlaylists,
 } from '../src/main';
 
 Chai.use(sinonChai);
-sinonStubPromise(sinon);
 
 global.fetch = require('node-fetch');
 
 describe('Spotify Wrapper', function () {
+  let fetchedStub;
+
+  beforeEach(function () {
+    fetchedStub = sinon.stub(global, 'fetch');
+    fetchedStub.resolves({ json: () => {} });
+  });
+
+  afterEach(function () {
+    fetchedStub.restore();
+  });
+
   describe('Smoke Tests', function () {
     it('Should exist the search method', function () {
       expect(search).to.exist;
@@ -37,16 +46,6 @@ describe('Spotify Wrapper', function () {
   });
 
   describe('Generic Search', function () {
-    let fetchedStub;
-
-    beforeEach(function () {
-      fetchedStub = sinon.stub(global, 'fetch');
-    });
-
-    afterEach(function () {
-      fetchedStub.restore();
-    });
-
     it('Should call fetch function', function () {
       const artists = search();
       expect(fetchedStub).to.have.been.calledOn;
@@ -62,9 +61,69 @@ describe('Spotify Wrapper', function () {
       });
 
       context('Passing more than one type', function () {
-        const artistAndAlbum = search('Incubus', ['artist', 'album']);
-        expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist');
+        const artistsAndAlbums = search('Incubus', ['artist', 'album']);
+        expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist,album');
       });
+    });
+  });
+
+  describe('searchArtists', function () {
+    it('Should call fetch function', function () {
+      const artists = searchArtists('Incubus');
+      expect(fetchedStub).to.have.been.calledOnce;
+    });
+
+    it('Should call fetch with the currect URL', function () {
+      const artists = searchArtists('Incubus');
+      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist');
+
+      const artists2 = searchArtists('Muse');
+      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=artist');
+    });
+  });
+
+  describe('searchAlbums', function () {
+    it('Should call fetch function', function () {
+      const albums = searchAlbums('Incubus');
+      expect(fetchedStub).to.have.been.calledOnce;
+    });
+
+    it('Should call fetch with the currect URL', function () {
+      const albums = searchAlbums('Incubus');
+      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=album');
+
+      const albums2 = searchAlbums('Muse');
+      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=album');
+    });
+  });
+
+  describe('searchTracks', function () {
+    it('Should call fetch function', function () {
+      const tracks = searchTracks('Incubus');
+      expect(fetchedStub).to.have.been.calledOnce;
+    });
+
+    it('Should call fetch with the currect URL', function () {
+      const tracks = searchTracks('Incubus');
+      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=track');
+
+      const tracks2 = searchTracks('Muse');
+      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=track');
+    });
+  });
+
+  describe('searchPlaylists', function () {
+    it('Should call fetch function', function () {
+      const playlist = searchPlaylists('Incubus');
+      expect(fetchedStub).to.have.been.calledOnce;
+    });
+
+    it('Should call fetch with the currect URL', function () {
+      const playlist = searchPlaylists('Incubus');
+      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=playlist');
+
+      const playlist2 = searchPlaylists('Muse');
+      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=playlist');
     });
   });
 });
