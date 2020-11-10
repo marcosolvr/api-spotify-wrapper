@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
