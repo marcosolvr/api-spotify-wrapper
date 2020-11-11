@@ -6,5 +6,5 @@ const HEADERS = {
 export const getAlbum = (query) => fetch(`https://api.spotify.com/v1/albums/?ids=${query}`, HEADERS).then((data) => data.json);
 // eslint-disable-next-line no-undef
 export const getAlbums = (query) => fetch(`https://api.spotify.com/v1/albums/?ids=${query}`, HEADERS).then((data) => data.json);
-
-export const getAlbumTracks = () => {};
+// eslint-disable-next-line no-undef
+export const getAlbumTracks = (query) => fetch(`https://api.spotify.com/v1/albums/${query}/tracks`).then((data) => data.json);
