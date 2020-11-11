@@ -3,7 +3,7 @@ import Chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
-import { getAlbum, getAlbumTracks } from '../src/album';
+import { getAlbum, getAlbums, getAlbumTracks } from '../src/album';
 
 Chai.use(sinonChai);
 
@@ -46,15 +46,30 @@ describe('Album', () => {
     });
 
     it('should return the currect data from Promise', () => {
-      const TOKEN = 'BQCxAjLeD8NAV_S4c5qA9mvEIa0QF753PgnzSa9qZ4ca1Er-eFZdt2iBc3yk9orAuSbTo20r0rIPJFsoNXYndxewWmA3fFP59BRRtNl8ev1wcl0oiOXxd-R_qWknT622AcsZiZ7seRRXBfj4Lp103B-r8dQx';
-      const HEADERS = {
-        headers: { Authorization: `Bearer ${TOKEN}` },
-      };
       fetchedStub.resolves({ album: 'name' });
 
       const album = getAlbum('53A0W3U0s8diEn9RhXQhVz');
       album
         .then((data) => expect(data).to.be.eql({ album: 'name' }));
+    });
+  });
+
+  describe('getAlbums', () => {
+    it('should call the fetch function', () => {
+      const albums = getAlbums();
+      expect(fetchedStub).to.have.been.calledOnce;
+    });
+
+    it('should call fetch with the currect URL', () => {
+      const albums = getAlbums(['53A0W3U0s8diEn9RhXQhVz', '53A0W3U0s8diEn9RhXQhVa']);
+      expect(fetchedStub).to.have.been.calledWith('https://api.spotify.com/v1/albums/?ids=53A0W3U0s8diEn9RhXQhVz,53A0W3U0s8diEn9RhXQhVa');
+    });
+
+    it('should return the currect data from Promise', () => {
+      fetchedStub.resolves({ albums: 'name' });
+
+      const albums = getAlbums(['53A0W3U0s8diEn9RhXQhVz', '53A0W3U0s8diEn9RhXQhVa']);
+      albums.then((data) => expect(data).to.be.eql({ albums: 'name' }));
     });
   });
 });
