@@ -12,7 +12,7 @@ export default {
   devtool: 'source-map',
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'babel-loader', include },
-    ],
-  },
+      {test: /\.js$/, loader: 'babel-loader', include},
+    ]
+  }
 };

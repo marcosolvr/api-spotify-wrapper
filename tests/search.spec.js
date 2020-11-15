@@ -16,7 +16,7 @@ describe('Search', function () {
 
   beforeEach(function () {
     fetchedStub = sinon.stub(global, 'fetch');
-    fetchedStub.resolves({ album: 'nome' });
+    fetchedStub.resolves({ json: () => ({ album: 'nome'}) });
   });
 
   afterEach(function () {

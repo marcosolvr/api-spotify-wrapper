@@ -1,2 +1,2 @@
-const toJSON = (data) => data;
+const toJSON = (data) => data.json();
 export default toJSON;
