@@ -11,10 +11,11 @@ global.fetch = require('node-fetch');
 
 describe('Album', () => {
   let fetchedStub;
+  let promise;
 
   beforeEach(function () {
     fetchedStub = sinon.stub(global, 'fetch');
-    fetchedStub.resolves({ json: () => ({ album: 'nome'}) });
+    promise = fetchedStub.resolves({ json: () => ({ album: 'name' }) });
   });
 
   afterEach(function () {
@@ -46,11 +47,10 @@ describe('Album', () => {
     });
 
     it('should return the currect data from Promise', () => {
-      fetchedStub.resolves({ album: 'name' });
-
       const album = getAlbum('53A0W3U0s8diEn9RhXQhVz');
-      album
-        .then((data) => expect(data).to.be.eql({ album: 'name' }));
+      album.then((data) => {
+        expect(data).to.be.eql({ album: 'name' });
+      });
     });
   });
 
@@ -66,10 +66,10 @@ describe('Album', () => {
     });
 
     it('should return the currect data from Promise', () => {
-      fetchedStub.resolves({ albums: 'name' });
-
       const albums = getAlbums(['53A0W3U0s8diEn9RhXQhVz', '53A0W3U0s8diEn9RhXQhVa']);
-      albums.then((data) => expect(data).to.be.eql({ albums: 'name' }));
+      albums.then((data) => {
+        expect(data).to.be.eql({ album: 'name' });
+      });
     });
   });
 
@@ -85,9 +85,10 @@ describe('Album', () => {
     });
 
     it('should return the currect data from Promise', () => {
-      fetchedStub.resolves({ album: 'name' });
       const albumTracks = getAlbumTracks('53A0W3U0s8diEn9RhXQhVz');
-      albumTracks.then((data) => expect(data).to.be.eql({ album: 'name' }));
+      albumTracks.then((data) => {
+        expect(data).to.be.eql({ album: 'name'});
+      });
     });
   });
 });
