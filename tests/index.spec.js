@@ -1,5 +1,4 @@
 import Chai, { expect } from 'chai';
-import { FetchError } from 'node-fetch';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
@@ -35,7 +34,7 @@ describe('SpotifyWrapper Library', () => {
 
     beforeEach(() => {
       stubedFecth = sinon.stub(global, 'fetch');
-      stubedFecth.resolves({ json: () => ({ album: 'nome'}) });
+      stubedFecth.resolves({ json: () => {} });
     });
 
     afterEach(() => {
