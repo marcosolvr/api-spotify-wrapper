@@ -11,7 +11,11 @@
 <script src="../dist/spotify-wrapper.umd.js"></script>
 
 <script>
-  const albums = spotifyWrapper.searchAlbums('Incubus');
+  const spotify = new spotifyWrapper({
+    token: 'BQAkBimxy6n8fTQRkHLqbHsBLRjatiT624OEC8grxQWXH_IfmOXR7T0Oki_r82x7_cHn4nSKDfQ0NSFaNt1BjfigsnTxGgAckcvMl8gU69cBTG9icZh5Aerfg_B8ddEW-Cg4do17AcoJNFdR4m3dtFOSWg0p'
+  })
+
+  const albums = spotify.search.albums('Soundgarden');
   const albumsEl = document.getElementById('albums');
 
   albums
